@@ -16,11 +16,26 @@
 
     <!-- Icon mạng xã hội -->
     <div class="flex justify-center gap-4 mb-4">
-        <a href="#"><img src="./uploads/image/others/fb.jpg" class="h-8 w-8 rounded-full"></a>
-        <a href="#"><img src="./uploads/image/others/mess.jpg" class="h-8 w-8 rounded-full"></a>
-        <a href="#"><img src="./uploads/image/others/zalo.jpg" class="h-8 w-8 rounded-full"></a>
-        <a href="#"><img src="./uploads/image/others/mail.jpg" class="h-8 w-8 rounded-full"></a>
-    </div>
+    <a href="#" class="transition transform hover:-translate-y-2">
+        <img src="./uploads/image/others/fb.jpg"
+             class="h-8 w-8 rounded-full">
+    </a>
+
+    <a href="#" class="transition transform hover:-translate-y-2">
+        <img src="./uploads/image/others/mess.jpg"
+             class="h-8 w-8 rounded-full">
+    </a>
+
+    <a href="#" class="transition transform hover:-translate-y-2">
+        <img src="./uploads/image/others/zalo.jpg"
+             class="h-8 w-8 rounded-full">
+    </a>
+
+    <a href="#" class="transition transform hover:-translate-y-2">
+        <img src="./uploads/image/others/mail.jpg"
+             class="h-8 w-8 rounded-full">
+    </a>
+</div>
 
     <!-- Đường line -->
     <div class="border-t border-gray-600 my-4"></div>
