@@ -1,4 +1,4 @@
-# 🖼️ Web Bán Đĩa CD/Album  
+# 💿 Web Bán Đĩa CD/Album  
 ## Mô tả đề tài của Website
 Website bán đĩa CD/Album là một ứng dụng web thương mại điện tử được xây dựng nhằm cung cấp nền tảng trực tuyến cho người dùng tìm kiếm, lựa chọn và mua các sản phẩm âm nhạc như CD, album, vinyl của nhiều nghệ sĩ và thể loại khác nhau. Hệ thống cho phép khách hàng xem thông tin chi tiết sản phẩm, bao gồm tên album, nghệ sĩ, thể loại, năm phát hành, giá bán và tình trạng còn hàng.
 
