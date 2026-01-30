@@ -56,6 +56,9 @@ if (!isset($_SESSION["user_id"])) {
     </div>
 </div>
 
+
+<!-- Footer -->
+<?php $footer_mt = 'mt-24'; ?>
 <?php include "includes/footer.php"; ?>
 </body>
 </html>
