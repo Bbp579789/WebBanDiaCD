@@ -71,13 +71,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body class="bg-white-100">
+<!-- Header -->
 <?php include "includes/header.php"; ?>
 
+<!-- ĐĂNG KÝ TÀI KHOẢN -->
 <div>
-    <h2 class="text-2xl font-semibold text-center my-6">Đăng ký thành viên</h2>
+    <h2 class="text-2xl font-semibold text-center my-6">Đăng ký tài khoản</h2>
 
     <form method="POST"
-          class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md space-y-4">
+          class="max-w-md mx-auto bg-green-100 p-6 rounded-md shadow-md space-y-4">
 
         <?php if ($error): ?>
             <div class="bg-red-100 text-red-700 px-4 py-2 rounded">
@@ -140,6 +142,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </form>
 </div>
 
+<!-- Footer -->
+<?php $footer_mt = 'mt-24'; ?>
 <?php include "includes/footer.php"; ?>
 </body>
 </html>

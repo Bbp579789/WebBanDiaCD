@@ -16,7 +16,7 @@ $mang_xa_hoi = [
 ];
 ?>
 
-<footer class="bg-black text-white p-6 mt-20 rounded-md">
+<footer class="bg-black text-white p-6 rounded-md <?= $footer_mt ?? '' ?>">
 
     <!-- Menu -->
     <div class="flex flex-wrap justify-center gap-4 mb-4 text-sm font-medium">
@@ -51,7 +51,7 @@ $mang_xa_hoi = [
 
             <div class="flex items-center gap-2">
                 <img src="./uploads/image/others/address.jpg" class="h-5 w-5 rounded-full">
-                <p>Địa chỉ: 123 Đường ABC, Quận 1, TP.HCM</p>
+                <p>Địa chỉ: 123 Đường ABC, Quận 10, TP.HCM</p>
             </div>
 
             <div class="flex items-center gap-2">
@@ -61,7 +61,7 @@ $mang_xa_hoi = [
 
             <div class="flex items-center gap-2">
                 <img src="./uploads/image/others/mail.jpg" class="h-5 w-5 rounded-full">
-                <p>Email: theartstore2005@gmail.com</p>
+                <p>Email: musicislife@gmail.com</p>
             </div>
 
         </div>

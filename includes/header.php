@@ -80,9 +80,9 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <nav class="bg-black h-20 rounded-md flex items-center justify-center gap-6 text-white font-medium">
 
-        <a href="index.php"
+        <a href="danhsachsanpham.php"
            class="px-4 py-2 rounded-md transition hover:bg-green-600">
-            Trang chủ
+            Tất cả sản phẩm
         </a>
 
         <?php while ($row = mysqli_fetch_assoc($result)) { ?>

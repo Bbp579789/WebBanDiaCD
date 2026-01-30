@@ -94,6 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body class="bg-white">
+  
+<!-- Header -->
 <?php include "includes/header.php"; ?>
 
 <!-- TOAST ERROR -->
@@ -176,6 +178,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   </div>
 </div>
 
+<!-- Footer -->
+<?php $footer_mt = 'mt-24'; ?>
 <?php include "includes/footer.php"; ?>
 
 <script>
