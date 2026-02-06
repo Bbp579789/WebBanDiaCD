@@ -1,8 +1,9 @@
 <?php
+session_start();
 require_once "config/database.php";
 
 $error = "";
-$success = "";
+
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -13,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email         = trim($_POST["email"] ?? "");
     $so_dien_thoai = trim($_POST["so_dien_thoai"] ?? "");
     $dia_chi       = trim($_POST["dia_chi"] ?? "");
-
+   
     // KIỂM TRA RỖNG
     if (
         $ten_dang_nhap === "" || $mat_khau === "" || $xac_nhan === "" ||
@@ -21,12 +22,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     ) {
         $error = "Vui lòng nhập đầy đủ thông tin";
     }
+
     // KIỂM TRA XÁC NHẬN MK
     elseif ($mat_khau !== $xac_nhan) {
         $error = "Mật khẩu xác nhận không khớp";
     }
     else {
-        // KIỂM TRA TRÙNG USERNAME
+    // KIỂM TRA TRÙNG USERNAME
         $sql = "SELECT id FROM nguoi_dung WHERE ten_dang_nhap = ? LIMIT 1";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $ten_dang_nhap);
@@ -36,10 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($result->num_rows > 0) {
             $error = "Tên đăng nhập đã tồn tại";
         } else {
-            // INSERT USER
+
             $sql = "INSERT INTO nguoi_dung 
-            (ten_dang_nhap, mat_khau, ho_ten, email, so_dien_thoai, dia_chi, vai_tro, trang_thai, created_at)
-            VALUES (?, ?, ?, ?, ?, ?, 'user', 1, NOW())";
+                (ten_dang_nhap, mat_khau, ho_ten, email, so_dien_thoai, dia_chi, vai_tro, trang_thai, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, 'user', 1, NOW())";
 
             $stmt = $conn->prepare($sql);
             $stmt->bind_param(
@@ -53,7 +55,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             );
 
             if ($stmt->execute()) {
-                $success = "Đăng ký thành công! Bạn có thể đăng nhập.";
+                // ✅ FLASH MESSAGE
+                $_SESSION["register_success"] = "Đăng ký thành công! Bạn có thể đăng nhập.";
+
+                header("Location: index.php");
+                exit();
             } else {
                 $error = "Đăng ký thất bại";
             }
@@ -87,11 +93,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
         <?php endif; ?>
 
-        <?php if ($success): ?>
+        <!-- <?php if ($success): ?>
             <div class="bg-green-100 text-green-700 px-4 py-2 rounded">
                 <?= $success ?>
             </div>
-        <?php endif; ?>
+        <?php endif; ?> -->
 
         <div>
             <label class="block font-semibold mb-1">Tên đăng nhập</label>
