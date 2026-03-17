@@ -79,6 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body class="bg-white-100">
 <!-- Header -->
 <?php include "includes/header.php"; ?>
+<div class="h-[150px]"></div>
 
 <!-- ĐĂNG KÝ TÀI KHOẢN -->
 <div>

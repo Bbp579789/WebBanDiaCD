@@ -44,24 +44,23 @@
 
 <!-- tự động chuyển ảnh banner -->
 <script>
-let index = 0;
-const slider = document.getElementById('slider');
-const total = slider.children.length;
+    let index = 0;
+    const slider = document.getElementById('slider');
+    const total = slider.children.length;
 
-function showSlide(i) {
-    index = (i + total) % total;
-    slider.style.transform = `translateX(-${index * 100}%)`;
-}
+    function showSlide(i) {
+        index = (i + total) % total;
+        slider.style.transform = `translateX(-${index * 100}%)`;
+    }
 
-function nextSlide() {
-    showSlide(index + 1);
-}
+    function nextSlide() {
+        showSlide(index + 1);
+    }
 
-function prevSlide() {
-    showSlide(index - 1);
-}
+    function prevSlide() {
+        showSlide(index - 1);
+    }
 
-// Tự động chạy mỗi 3 giây
-setInterval(nextSlide, 3000);
+    // Tự động chạy mỗi 3 giây
+    setInterval(nextSlide, 3000);
 </script>
-

@@ -8,6 +8,7 @@
 <body>
     <!-- Header -->
     <?php include "includes/header.php"; ?>
+    <div class="h-[150px]"></div>
 
     
     <!-- Footer -->

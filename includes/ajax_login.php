@@ -11,7 +11,7 @@ $password = trim($_POST["password"] ?? "");
 if ($username === "" || $password === "") {
     echo json_encode([
         "status" => "error",
-        "type"   => "empty"
+        "type" => "empty"
     ]);
     exit;
 }
@@ -26,7 +26,7 @@ $result = $stmt->get_result();
 if ($result->num_rows === 0) {
     echo json_encode([
         "status" => "error",
-        "type"   => "username"
+        "type" => "username"
     ]);
     exit;
 }
@@ -37,7 +37,7 @@ $user = $result->fetch_assoc();
 if ($password !== $user["mat_khau"]) {
     echo json_encode([
         "status" => "error",
-        "type"   => "password"
+        "type" => "password"
     ]);
     exit;
 }
@@ -46,19 +46,19 @@ if ($password !== $user["mat_khau"]) {
 if ($user["trang_thai"] != 1) {
     echo json_encode([
         "status" => "error",
-        "type"   => "blocked"
+        "type" => "blocked"
     ]);
     exit;
 }
 
 /* ===== LOGIN OK ===== */
-$_SESSION["user_id"]  = $user["id"];
+$_SESSION["user_id"] = $user["id"];
 $_SESSION["username"] = $user["ten_dang_nhap"];
-$_SESSION["name"]     = $user["ho_ten"];
-$_SESSION["role"]     = $user["vai_tro"];
-$_SESSION["email"]    = $user["email"];
-$_SESSION["phone"]    = $user["so_dien_thoai"];
-$_SESSION["address"]  = $user["dia_chi"];
+$_SESSION["name"] = $user["ho_ten"];
+$_SESSION["role"] = $user["vai_tro"];
+$_SESSION["email"] = $user["email"];
+$_SESSION["phone"] = $user["so_dien_thoai"];
+$_SESSION["address"] = $user["dia_chi"];
 
 echo json_encode([
     "status" => "success"

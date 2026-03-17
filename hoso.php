@@ -17,6 +17,7 @@ if (!isset($_SESSION["user_id"])) {
 
 <body class="bg-white-100">
 <?php include "includes/header.php"; ?>
+<div class="h-[150px]"></div>
 
 <div class="max-w-4xl mx-auto mt-10 p-6 bg-gray-200 rounded-md shadow-md">
     <h2 class="text-3xl font-bold mb-6 text-center">Hồ sơ cá nhân</h2>

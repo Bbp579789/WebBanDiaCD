@@ -1,4 +1,3 @@
-
 <?php
 $menu_footer = [
     ['text' => 'Trang chủ', 'link' => 'index.php'],
@@ -21,8 +20,7 @@ $mang_xa_hoi = [
     <!-- Menu -->
     <div class="flex flex-wrap justify-center gap-4 mb-4 text-sm font-medium">
         <?php foreach ($menu_footer as $item): ?>
-            <a href="<?= $item['link'] ?>"
-               class="px-4 py-2 rounded-md transition hover:bg-green hover:text-green-600">
+            <a href="<?= $item['link'] ?>" class="px-4 py-2 rounded-md transition hover:bg-green hover:text-green-600">
                 <?= $item['text'] ?>
             </a>
         <?php endforeach; ?>
@@ -32,8 +30,7 @@ $mang_xa_hoi = [
     <div class="flex justify-center gap-4 mb-4">
         <?php foreach ($mang_xa_hoi as $mxh): ?>
             <a href="<?= $mxh['link'] ?>" class="transition transform hover:-translate-y-2">
-                <img src="./uploads/image/others/<?= $mxh['icon'] ?>"
-                     class="h-8 w-8 rounded-full">
+                <img src="./uploads/image/others/<?= $mxh['icon'] ?>" class="h-8 w-8 rounded-full">
             </a>
         <?php endforeach; ?>
     </div>
@@ -67,4 +64,3 @@ $mang_xa_hoi = [
         </div>
     </div>
 </footer>
-
