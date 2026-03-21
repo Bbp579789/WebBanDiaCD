@@ -89,10 +89,9 @@
                                 Thêm giỏ
                             </button>
 
-                            <a href="giohang.php?id=<?php echo $row['id']; ?>"
-                                class="bg-blue-600 text-white px-4 py-2 rounded-md">
+                            <button onclick="muaNgay(<?= $row['id'] ?>)" class="bg-blue-600 text-white px-4 py-2 rounded-md">
                                 Mua ngay
-                            </a>
+                            </button>
 
                         <?php else: ?>
 
@@ -125,39 +124,42 @@
             <div class="flex justify-center mt-10 gap-2">
                 <?php if ($page > 1): ?>
                     <a href="?page=<?php echo $page - 1; ?>" class="px-4 py-2 bg-white border rounded hover:bg-gray-300">
-                    <
-                    </a>
-                <?php endif; ?>
+                        < </a>
+                        <?php endif; ?>
 
-                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                    <a href="?page=<?php echo $i; ?>" class="px-4 py-2 border rounded
+                        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                            <a href="?page=<?php echo $i; ?>" class="px-4 py-2 border rounded
                    <?php echo ($i == $page)
                        ? 'bg-green-700 text-white'
                        : 'bg-white hover:bg-gray-300'; ?>">
-                        <?php echo $i; ?>
-                    </a>
-                <?php endfor; ?>
+                                <?php echo $i; ?>
+                            </a>
+                        <?php endfor; ?>
 
-                <?php if ($page < $totalPages): ?>
-                    <a href="?page=<?php echo $page + 1; ?>" class="px-4 py-2 bg-white border rounded hover:bg-gray-300">
-                        >
-                    </a>
-                <?php endif; ?>
+                        <?php if ($page < $totalPages): ?>
+                            <a href="?page=<?php echo $page + 1; ?>"
+                                class="px-4 py-2 bg-white border rounded hover:bg-gray-300">
+                                >
+                            </a>
+                        <?php endif; ?>
             </div>
 
         </div>
     </div>
 
 
-    <div id="toast" class="fixed bottom-5 right-5 z-[9999]
-bg-green-600 text-white
-px-8 py-4 text-lg font-semibold
-rounded-xl shadow-xl hidden">
+    <div id="toast" class="fixed top-24 right-[-250px] 
+     bg-green-500 text-white 
+     px-3 py-2 text-sm 
+     rounded-md shadow 
+     z-[9999] transition-all duration-300">
     </div>
+    <script src="assets/js/toast.js"></script>
 
     <!-- Footer -->
     <?php include "includes/footer.php"; ?>
-    <script src="assets/js/toast.js"></script>
+
 
 </body>
+
 </html>

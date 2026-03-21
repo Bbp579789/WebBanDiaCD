@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -117,15 +118,14 @@
 
                         <?php if (isset($_SESSION['user_id'])): ?>
 
-                            <button onclick="themGio(<?php echo $row['id']; ?>)"
+                            <button onclick="themGio(<?= $row['id'] ?>)"
                                 class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
                                 Thêm giỏ
                             </button>
 
-                            <a href="giohang.php?id=<?php echo $row['id']; ?>"
-                                class="bg-blue-600 text-white px-4 py-2 rounded-md">
+                            <button onclick="muaNgay(<?= $row['id'] ?>)" class="bg-blue-600 text-white px-4 py-2 rounded-md">
                                 Mua ngay
-                            </a>
+                            </button>
 
                         <?php else: ?>
 
@@ -200,18 +200,18 @@
         </div>
     </div>
 
-    <div id="toast" class="fixed bottom-5 right-5 z-[9999]
-bg-green-600 text-white
-px-8 py-4 text-lg font-semibold
-rounded-xl shadow-xl hidden">
+    <div id="toast" class="fixed top-24 right-[-250px] 
+     bg-green-500 text-white 
+     px-3 py-2 text-sm 
+     rounded-md shadow 
+     z-[9999] transition-all duration-300">
     </div>
+    <script src="assets/js/toast.js"></script>
 
     <!-- Footer -->
     <?php include "includes/footer.php"; ?>
-    <script src="assets/js/toast.js"></script>
+
 
 </body>
 
 </html>
-
-

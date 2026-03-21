@@ -1,27 +1,39 @@
-// Thông báo khi thêm giỏ hàng thành công
-    function themGio(id) {
+function themGio(id) {
+    fetch("includes/them_gio_hang.php?id=" + id)
+        .then(res => res.text())
+        .then(data => {
+            console.log(data);
 
-        fetch("includes/themgiohang.php?id=" + id)
-            .then(res => res.text())
-            .then(data => {
+            if (data.trim() === "success") {
+                showToast("✔ Đã thêm vào giỏ hàng");
+            } else {
+                showToast("❌ Thêm thất bại");
+            }
+        });
+}
 
-                if (data == "success") {
-                    showToast("✔ Đã thêm vào giỏ hàng");
-                }
+function muaNgay(id) {
+    fetch("includes/them_gio_hang.php?id=" + id)
+        .then(res => res.text())
+        .then(data => {
+            if (data.trim() === "success") {
+                window.location.href = "giohang.php"; // 👉 chuyển trang
+            } else {
+                showToast("❌ Có lỗi xảy ra");
+            }
+        })
+        .catch(() => {
+            showToast("❌ Lỗi kết nối");
+        });
+}
 
-            });
+function showToast(text) {
+    let toast = document.getElementById("toast");
 
-    }
+    toast.innerText = text;
+    toast.style.right = "20px";
 
-    function showToast(text) {
-
-        let toast = document.getElementById("toast");
-
-        toast.innerText = text;
-        toast.classList.remove("hidden");
-
-        setTimeout(() => {
-            toast.classList.add("hidden");
-        }, 2000);
-
-    }
+    setTimeout(() => {
+        toast.style.right = "-300px";
+    }, 2000);
+}
