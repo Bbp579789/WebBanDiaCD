@@ -106,7 +106,7 @@ foreach ($cart as $id => $item) {
                             Tổng: <?= number_format($total) ?>đ
                         </span>
 
-                        <a href="thanhtoan.php" class="bg-green-500 text-white px-6 py-2 rounded">
+                        <a href="thongtindathang.php" class="bg-green-500 text-white px-6 py-2 rounded">
                             Thanh toán
                         </a>
                     </div>

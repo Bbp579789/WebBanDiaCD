@@ -63,7 +63,30 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION["phone"]   = $user["so_dien_thoai"];
                 $_SESSION["address"] = $user["dia_chi"];
 
-                
+                //  load cart từ DB
+$user_id = $user["id"];
+
+$sql = "SELECT c.*, s.ten_san_pham, s.gia, s.hinh_anh 
+        FROM cart c
+        JOIN san_pham s ON c.san_pham_id = s.id
+        WHERE c.nguoi_dung_id = ?";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$_SESSION['cart'] = [];
+
+while ($row = $result->fetch_assoc()) {
+    $_SESSION['cart'][$row['san_pham_id']] = [
+        "name" => $row['ten_san_pham'],
+        "price" => $row['gia'],
+        "quantity" => $row['so_luong'],
+        "img" => $row['hinh_anh'],
+         "theloai" => $row['theloai']
+    ];
+}
 
                 header("Location: index.php");
                 exit();
