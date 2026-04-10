@@ -13,11 +13,19 @@ if (session_status() === PHP_SESSION_NONE) {
             <img src="uploads/image/others/music.jpg" alt="Logo" class="h-12 rounded-md">
         </a>
 
-        <!-- SEARCH -->
-        <div class="flex-1 flex justify-center">
-            <input type="search" placeholder="Tìm kiếm sản phẩm..." class="border-2 border-green-900 p-2 rounded w-1/2">
+      <!-- SEARCH -->
+<div class="flex-1 flex justify-center relative">
+    <form action="timkiem.php" method="GET" class="w-1/2 relative">
+        <input type="search" name="search" id="searchInput" autocomplete="off"
+               placeholder="Tìm kiếm sản phẩm..." 
+               class="border-2 border-green-900 p-2 rounded w-full focus:outline-none">
+        
+        <!-- Khu vực hiện gợi ý -->
+        <div id="searchSuggestions" class="absolute left-0 right-0 top-full bg-white border border-gray-200 shadow-xl rounded-b-md hidden z-[100]">
+            <!-- Kết quả gợi ý sẽ đổ vào đây qua AJAX -->
         </div>
-
+    </form>
+</div>
         <!-- RIGHT ACTION -->
         <div class="flex gap-3 relative">
 
@@ -48,6 +56,9 @@ if (session_status() === PHP_SESSION_NONE) {
                     <a href="hoso.php" class="block px-4 py-2 hover:bg-gray-100">
                         Hồ sơ
                     </a>
+                    <a href="lichsudonhang.php" class="block px-4 py-2 hover:bg-gray-100">
+                            Đơn hàng
+                    </a>
                     <a href="includes/logout.php" class="block px-4 py-2 text-red-600 hover:bg-gray-100">
                         Đăng xuất
                     </a>
@@ -73,7 +84,10 @@ if (session_status() === PHP_SESSION_NONE) {
     $current_page = basename($_SERVER['PHP_SELF']);
 
 
-    $result = mysqli_query($conn, "SELECT * FROM the_loai");
+    $stmt = mysqli_prepare($conn, "SELECT id, ten_the_loai FROM the_loai WHERE trang_thai = 1 ORDER BY ten_the_loai ASC");
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
+    $categories = mysqli_fetch_all($res, MYSQLI_ASSOC);
     ?>
 
     <nav class="bg-black h-20 rounded-md flex items-center justify-center gap-6 text-white font-medium">
@@ -86,14 +100,11 @@ if (session_status() === PHP_SESSION_NONE) {
             Tất cả sản phẩm
         </a>
 
-        <?php while ($row = mysqli_fetch_assoc($result)): ?>
-            <a href="theloai.php?id=<?= $row["id"] ?>" class="px-4 py-2 rounded-md transition
-<?php echo ($current_page == 'theloai.php' && $current_id == $row["id"])
-            ? 'bg-green-600'
-            : 'hover:bg-green-600'; ?>">
-                <?= htmlspecialchars($row["ten_the_loai"]) ?>
-            </a>
-        <?php endwhile; ?>
+        <?php foreach($categories as $c): ?>
+          <a href="theloai.php?id=<?= (int)$c['id'] ?>" class="inline-block px-3 py-1">
+            <?= htmlspecialchars($c['ten_the_loai']) ?>
+          </a>
+        <?php endforeach; ?>
 
     </nav>
 
@@ -251,4 +262,31 @@ if (session_status() === PHP_SESSION_NONE) {
                 return "Đăng nhập thất bại";
         }
     }
+
+    
+const searchInput = document.getElementById('searchInput');
+const suggestionBox = document.getElementById('searchSuggestions');
+
+searchInput.addEventListener('input', function() {
+    const query = this.value.trim();
+
+    if (query.length >= 2) { // Gõ từ 2 ký tự mới gợi ý
+        fetch(`includes/ajax_search.php?q=${encodeURIComponent(query)}`)
+            .then(res => res.text())
+            .then(data => {
+                suggestionBox.innerHTML = data;
+                suggestionBox.classList.remove('hidden');
+            });
+    } else {
+        suggestionBox.classList.add('hidden');
+    }
+});
+
+// Đóng gợi ý khi click ra ngoài
+document.addEventListener('click', (e) => {
+    if (!searchInput.contains(e.target) && !suggestionBox.contains(e.target)) {
+        suggestionBox.classList.add('hidden');
+    }
+});
+
 </script>

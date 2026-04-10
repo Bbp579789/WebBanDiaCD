@@ -40,6 +40,7 @@
         SELECT sp.*, ns.ten_nghe_si
         FROM san_pham sp
         JOIN nghe_si ns ON sp.nghe_si_id = ns.id
+        WHERE sp.trang_thai = 1
         LIMIT $limit OFFSET $offset
         ";
 

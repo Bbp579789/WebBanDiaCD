@@ -51,3 +51,4 @@ Website bán đĩa CD/Album là một ứng dụng web thương mại điện t�
 3. Cấu hình file kết nối database trong dự án (localhost, root, tên DB)
 4. Chép mã nguồn vào thư mục htdocs
 5. Truy cập website qua http://localhost/tên_dự_án
+6. Đăng nhập giao diện admin bằng url: http://localhost/dashboard/web2/WebBanDiaCD/admin/login_adm.php?key=MuzicStore_Secret_2024_Admin_Access_Token_XYZ

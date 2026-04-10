@@ -12,10 +12,19 @@
     <!-- Header -->
     <?php include "includes/header.php"; ?>
     <div class="h-[150px]"></div>
+    <!-- CỘT TRÁI: BỘ LỌC -->
+     <div class="max-w-7xl mx-auto px-4">
+        <div class="flex flex-col md:flex-row gap-6 items-start">
+        <div class="w-full md:w-1/4">
+            <?php include "includes/search_nangcao.php"; ?>
+        </div>
+        <div class="flex-1"></div>
 
     <!-- Banner -->
     <?php include "includes/banner.php"; ?>
-
+</div>
+</div>
+</div>
     <!-- Sản phẩm nổi bật -->
     <div class="bg-gray-200 py-8 mt-6 rounded-3xl">
 
@@ -35,6 +44,7 @@
 SELECT sp.*, ns.ten_nghe_si
 FROM san_pham sp
 JOIN nghe_si ns ON sp.nghe_si_id = ns.id
+WHERE sp.trang_thai = 1
 ORDER BY sp.id
 LIMIT 8
 ";
