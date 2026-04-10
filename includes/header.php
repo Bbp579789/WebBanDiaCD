@@ -150,10 +150,7 @@ if (session_status() === PHP_SESSION_NONE) {
             </div>
 
             <p id="loginError" class="text-red-600 text-sm hidden"></p>
-
-            <a href="quenmatkhau.php" class="text-green-600 hover:underline flex justify-end text-sm">
-                Quên mật khẩu
-            </a>
+            
 
             <button type="submit" class="w-full bg-green-600 text-white py-2 rounded
                        hover:bg-green-700 transition">

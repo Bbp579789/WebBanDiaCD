@@ -1,9 +1,12 @@
 <?php
 session_start();
-// Optional: kiểm tra quyền admin
-// if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) { http_response_code(401); echo 'Unauthorized'; exit; }
+// Kết nối database bằng PDO
+$host = 'localhost';
+$db   = 'webbandiacd';
+$user = 'root';
+$pass = '';
+$charset = 'utf8mb4';
 
-$host = 'localhost'; $db = 'webbandiacd'; $user = 'root'; $pass = ''; $charset = 'utf8mb4';
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 try {
     $pdo = new PDO($dsn, $user, $pass, [
@@ -11,54 +14,58 @@ try {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ]);
 } catch (PDOException $e) {
-    die('DB error: ' . $e->getMessage());
+    die("Lỗi kết nối: " . $e->getMessage());
 }
 
-$action = $_GET['action'] ?? $_POST['action'] ?? '';
+$action = isset($_GET['action']) ? $_GET['action'] : '';
 
-try {
-    if ($action === 'reset_password') {
-        $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
-        if ($id <= 0) { echo 'Invalid id'; exit; }
-        $default = '123456';
-        $hash = password_hash($default, PASSWORD_DEFAULT);
+// --- TRƯỜNG HỢP 1: KHỞI TẠO LẠI MẬT KHẨU (GỌI TỪ NÚT VÀNG) ---
+if ($action === 'reset_password') {
+    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+    
+    if ($id > 0) {
+        // Mật khẩu mặc định là 123456
+        $new_pass = "123456";
+        // BẮT BUỘC: Mã hóa mật khẩu trước khi lưu vào DB
+        $hashed_pass = password_hash($new_pass, PASSWORD_DEFAULT);
+
         $stmt = $pdo->prepare("UPDATE nguoi_dung SET mat_khau = ? WHERE id = ?");
-        $stmt->execute([$hash, $id]);
-        echo 'success'; exit;
-    }
-
-    // Create or update user (form posts here)
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
-        $ho_ten = trim($_POST['ho_ten'] ?? '');
-        $ten_dang_nhap = trim($_POST['ten_dang_nhap'] ?? '');
-        $email = trim($_POST['email'] ?? '');
-        $sdt = trim($_POST['so_dien_thoai'] ?? '');
-        $dia_chi = trim($_POST['dia_chi'] ?? '');
-        $vai_tro = trim($_POST['vai_tro'] ?? 'user');
-        $trang_thai = isset($_POST['trang_thai']) ? (int)$_POST['trang_thai'] : 1;
-
-        if ($id > 0) {
-            // update
-            $stmt = $pdo->prepare("UPDATE nguoi_dung SET ho_ten=?, ten_dang_nhap=?, email=?, so_dien_thoai=?, dia_chi=?, vai_tro=?, trang_thai=? WHERE id=?");
-            $stmt->execute([$ho_ten, $ten_dang_nhap, $email, $sdt, $dia_chi, $vai_tro, $trang_thai, $id]);
-            header('Location: manager-user.php?msg=updated'); exit;
+        if ($stmt->execute([$hashed_pass, $id])) {
+            echo 'success';
         } else {
-            // create with default password 123456
-            $default = '123456';
-            $hash = password_hash($default, PASSWORD_DEFAULT);
-            $stmt = $pdo->prepare("INSERT INTO nguoi_dung (ho_ten, ten_dang_nhap, mat_khau, email, so_dien_thoai, dia_chi, vai_tro, trang_thai) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$ho_ten, $ten_dang_nhap, $hash, $email, $sdt, $dia_chi, $vai_tro, $trang_thai]);
-            header('Location: manager-user.php?msg=created'); exit;
+            echo 'error_db';
         }
+    } else {
+        echo 'error_id';
     }
-
-    header('Location: manager-user.php');
-    exit;
-
-} catch (PDOException $e) {
-    error_log($e->getMessage());
-    echo 'Error: ' . $e->getMessage();
     exit;
 }
-?>
+
+// --- TRƯỜNG HỢP 2: LƯU THÔNG TIN (GỌI TỪ NÚT LƯU - THÊM/SỬA) ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === '') {
+    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+    $ho_ten = $_POST['ho_ten'];
+    $ten_dang_nhap = $_POST['ten_dang_nhap'];
+    $email = $_POST['email'];
+    $so_dien_thoai = $_POST['so_dien_thoai'];
+    $dia_chi = $_POST['dia_chi'];
+    $vai_tro = $_POST['vai_tro'];
+    $trang_thai = $_POST['trang_thai'];
+
+    if ($id > 0) {
+        // CẬP NHẬT TÀI KHOẢN (Không cập nhật mật khẩu ở bước này)
+        $sql = "UPDATE nguoi_dung SET ho_ten=?, ten_dang_nhap=?, email=?, so_dien_thoai=?, dia_chi=?, vai_tro=?, trang_thai=? WHERE id=?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$ho_ten, $ten_dang_nhap, $email, $so_dien_thoai, $dia_chi, $vai_tro, $trang_thai, $id]);
+    } else {
+        // THÊM MỚI TÀI KHOẢN
+        // Mặc định cho mật khẩu mới là 123456 (đã mã hóa)
+        $default_pass = password_hash("123456", PASSWORD_DEFAULT);
+        $sql = "INSERT INTO nguoi_dung (ho_ten, ten_dang_nhap, email, so_dien_thoai, dia_chi, vai_tro, trang_thai, mat_khau) VALUES (?,?,?,?,?,?,?,?)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$ho_ten, $ten_dang_nhap, $email, $so_dien_thoai, $dia_chi, $vai_tro, $trang_thai, $default_pass]);
+    }
+
+    header("Location: manager-user.php?msg=success");
+    exit;
+}

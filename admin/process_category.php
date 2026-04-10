@@ -8,7 +8,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 ?>
 
 <?php
-session_start();
+// session_start();
 
 // Cấu hình DB
 $host = 'localhost';

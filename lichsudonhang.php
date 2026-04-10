@@ -196,7 +196,7 @@ mysqli_stmt_close($stmt);
             if (event.target == modal) closeModal();
         }
     </script>
-
+<div class ="mt-24"></div>
     <?php include 'includes/footer.php'; ?>
 </body>
 </html>

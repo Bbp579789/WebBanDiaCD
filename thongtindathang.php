@@ -147,14 +147,40 @@ foreach ($cart_items as $item) {
                 <form method="POST" class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 space-y-6">
                     <input type="hidden" name="action" value="place_order">
                     
-                    <div class="space-y-4">
-                        <label class="block text-sm font-bold text-slate-400 uppercase tracking-widest">Địa chỉ nhận hàng</label>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input type="text" name="fullname" value="<?= htmlspecialchars($user['ho_ten']) ?>" placeholder="Họ tên người nhận" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                            <input type="text" name="phone" value="<?= htmlspecialchars($user['so_dien_thoai']) ?>" placeholder="Số điện thoại" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 transition">
-                        </div>
-                        <textarea name="address" rows="3" placeholder="Số nhà, đường, phường, quận..." class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 transition"><?= htmlspecialchars($user['dia_chi']) ?></textarea>
-                    </div>
+                    <div class="space-y-6">
+    <!-- Tiêu đề lớn của nhóm -->
+    <label class="block text-sm font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 pb-2">
+        Thông tin nhận hàng
+    </label>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Họ tên -->
+        <div class="space-y-2">
+            <label class="block text-xs font-bold text-slate-500 uppercase ml-1">Họ tên người nhận</label>
+            <input type="text" name="fullname" 
+                   value="<?= htmlspecialchars($user['ho_ten']) ?>" 
+                   placeholder="Nhập họ và tên..." 
+                   class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition shadow-sm">
+        </div>
+
+        <!-- Số điện thoại -->
+        <div class="space-y-2">
+            <label class="block text-xs font-bold text-slate-500 uppercase ml-1">Số điện thoại</label>
+            <input type="text" name="phone" 
+                   value="<?= htmlspecialchars($user['so_dien_thoai']) ?>" 
+                   placeholder="Nhập số điện thoại..." 
+                   class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition shadow-sm">
+        </div>
+    </div>
+
+    <!-- Địa chỉ -->
+    <div class="space-y-2">
+        <label class="block text-xs font-bold text-slate-500 uppercase ml-1">Địa chỉ nhận hàng</label>
+        <textarea name="address" rows="3" 
+                  placeholder="Số nhà, tên đường, phường/xã, quận/huyện..." 
+                  class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition shadow-sm"><?= htmlspecialchars($user['dia_chi']) ?></textarea>
+    </div>
+</div>
 
                     <div class="space-y-4">
                         <label class="block text-sm font-bold text-slate-400 uppercase tracking-widest">Phương thức thanh toán</label>
@@ -189,6 +215,15 @@ foreach ($cart_items as $item) {
                             </div>
                         </div>
                         <?php endforeach; ?>
+                    </div>
+                    <div class="flex justify-between text-sm font-bold text-slate-500 mt-4">
+                        <span>Tạm tính</span>
+                        <span><?= number_format($subtotal) ?>đ</span>
+                    </div>
+                    <!-- TỪ 2 sản phẩm trở lên thì freeship -->
+                    <div class="flex justify-between text-sm font-bold text-slate-500 mt-2">
+                        <span>Phí vận chuyển</span>
+                        <span><?= number_format($shipping) ?>đ</span>
                     </div>
                     <div class="border-t mt-6 pt-6 flex justify-between text-xl font-black text-indigo-600">
                         <span>Tổng tiền</span>
